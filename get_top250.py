@@ -1,5 +1,5 @@
 from requests_html import HTMLSession
-
+import requests
 
 
 
@@ -19,7 +19,7 @@ year = ''
 plot = 'full'
 
 IMDb_rating = []
-for title in ranking_list:
+for title in rating_list:
     url = 'http://www.omdbapi.com/?t=' + title + '&y=' + year + 'plot=' + plot + '&apikey=' + api_key
     r = requests.get(url)
     try:
@@ -31,4 +31,4 @@ for title in ranking_list:
     except Exception as e:
         IMDb_rating.append(None)
 
-
+print(IMDb_rating)
