@@ -31,9 +31,4 @@ for title in ranking_list:
     except Exception as e:
         IMDb_rating.append(None)
 
-''' using pandas '''
-movie_series = pd.Series(ranking_list, index=IMDb_rating)
 
-dict = {'title': ranking_list, 'rating': IMDb_rating}
-movie_frame = pd.DataFrame(dict)
-print(movie_frame.head())
