@@ -5,7 +5,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from requests_html import HTMLSession
 
-
 def change_money(str):
     try:
         money = int(str.replace(',', ''))
@@ -20,7 +19,6 @@ def change_money(str):
 wiki_url = 'https://en.wikipedia.org/wiki/List_of_highest-grossing_films'
 session = HTMLSession()
 response = session.get(wiki_url)
-# target = '.wikitable.sortable.plainrowheaders.jquery-tablesorter'
 titles = response.html.find('.wikitable')[0].find('i')
 ranking_list = []
 for title in titles:
@@ -41,12 +39,8 @@ for title in ranking_list:
         score = str(score).split('/')[0]
         score = float(score)
         IMDb_rating.append(score)
-        # print(score)
     except Exception as e:
         IMDb_rating.append(None)
-        # print(url)
-
-
 
 ''' using pandas '''
 movie_series = pd.Series(ranking_list, index=IMDb_rating)
@@ -54,10 +48,6 @@ movie_series = pd.Series(ranking_list, index=IMDb_rating)
 dict = {'title': ranking_list, 'rating': IMDb_rating}
 movie_frame = pd.DataFrame(dict)
 print(movie_frame.head())
-# print(movie_frame)
-
-# print(movie_frame.sort_values(by='ranking', ascending=False))
-# print(movie_frame)
 
 ''' money list '''
 money_list = []
@@ -70,8 +60,8 @@ for money in box_office:
 
 plt.figure(figsize=(10, 6))
 plt.scatter(movie_frame['rating'], money_list)
-plt.xlabel('ranking')
-plt.ylabel('rating')
+plt.xlabel('IMDb\'s rating')
+plt.ylabel('box office')
 plt.show()
 
 
@@ -113,8 +103,6 @@ money_list = []
 box_office = response.html.find('.wikitable')[1].find('tbody td .sortkey')
 for money in box_office:
     money_list.append(money.text.split('$')[1])
-# print(money_list)
-
 api_key = '2455a527'
 year = ''
 plot = 'full'
